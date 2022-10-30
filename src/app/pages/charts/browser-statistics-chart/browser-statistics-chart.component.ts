@@ -69,8 +69,7 @@ export class BrowserStatisticsChartComponent extends BasePieChartComponent imple
 
         pieChart.tooltip.enabled(false);
 
-        container1.append('div')
-          .append('svg')
+        container1.insert('div').insert('svg')
           .datum(data)
           .transition().duration(1200)
           .call(pieChart);
@@ -106,21 +105,20 @@ export class BrowserStatisticsChartComponent extends BasePieChartComponent imple
           }
         }
 
-        const color = d3.scale.ordinal().range(colors);
+        const color = d3.scaleOrdinal().range(colors);
 
-        const legend = container1.append('div')
+        const legend = container1.insert('div')
           .attr('class', 'legend')
           .selectAll('.legend__item')
           .data(data)
-          .enter()
-          .append('div')
+          .enter().insert('div')
           .attr('class', 'legend__item');
 
-        legend.append('div')
+        legend.insert('div')
           .attr('class', 'legend__mark pull-left')
           .style('background-color', (d => color(d.key)) as any);
 
-        legend.append('div')
+        legend.insert('div')
           .attr('class', 'legend__text')
           .text(d => d.key);
 

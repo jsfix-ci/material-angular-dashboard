@@ -76,9 +76,7 @@ export class PieChartComponent extends BasePieChartComponent implements OnInit {
           return `${d.animatedData.y} hours`;
         });
 
-      const container = d3.select(this.el.nativeElement)
-        .append('div')
-        .append('svg')
+      const container = d3.select(this.el.nativeElement).insert('div').insert('svg')
         .datum(animatedData)
         .transition()
         .duration(1200)
@@ -112,29 +110,26 @@ export class PieChartComponent extends BasePieChartComponent implements OnInit {
         animatedData,
       );
 
-      d3.select(this.el.nativeElement.querySelector('.nv-pie .nv-pie'))
-        .append('image')
+      d3.select(this.el.nativeElement.querySelector('.nv-pie .nv-pie')).insert('image')
         .attr('width', '30')
         .attr('height', '30')
         .attr('xlink:href', 'assets/images/watch_white.svg')
         .attr('transform', 'translate(-15,-35)');
 
-      const color = d3.scale.ordinal().range(colors);
+      const color = d3.scaleOrdinal().range(colors);
 
-      const legend = d3.select(this.el.nativeElement)
-        .append('div')
+      const legend = d3.select(this.el.nativeElement).insert('div')
         .attr('class', 'legend')
         .selectAll('.legend__item')
         .data(animatedData.slice(0, animatedData.length - 1))
-        .enter()
-        .append('div')
+        .enter().insert('div')
         .attr('class', 'legend__item');
 
-      legend.append('div')
+      legend.insert('div')
         .attr('class', 'legend__mark pull-left')
         .style('background-color', d => color(d.key).toString());
 
-      legend.append('div')
+      legend.insert('div')
         .attr('class', 'legend__text')
         .text(d => d.key);
 

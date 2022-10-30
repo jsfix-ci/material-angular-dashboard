@@ -58,7 +58,7 @@ export class LinePlusBarChartComponent implements OnInit {
         chart.xAxis
           .showMaxMin(false)
           .ticks(4)
-          .tickFormat(d => d3.time.format('%x')(new Date(d)));
+          .tickFormat(d => d3.timeFormat('%x')(new Date(d)));
 
         chart.y1Axis
           .showMaxMin(false)
@@ -75,12 +75,12 @@ export class LinePlusBarChartComponent implements OnInit {
             }
             d3.selectAll('.nvtooltip').classed('mdl-tooltip', true);
             if (d.hasOwnProperty('point')) {
-              return d3.time.format('%x')(new Date(d.value)) + '<br>Price: $' + d.series[0].value;
+              return d3.timeFormat('%x')(new Date(d.value)) + '<br>Price: $' + d.series[0].value;
             }
-            return d3.time.format('%x')(new Date(d.value)) + '<br>Quantity: ' + d.series[0].value;
+            return d3.timeFormat('%x')(new Date(d.value)) + '<br>Quantity: ' + d.series[0].value;
           });
 
-        container.append('svg')
+        container.insert('svg')
           .datum(data)
           .transition()
           .duration(0)
