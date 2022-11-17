@@ -62,29 +62,27 @@ export class DiscreteBarChartComponent implements OnInit {
         chart.yAxis
           .showMaxMin(false)
           .ticks(10)
-        ;
 
-        container.append('svg')
+        container.insert('svg')
           .datum(data)
           .transition().duration(1200)
           .call(chart);
 
         nv.utils.windowResize(chart.update);
 
-        const color = d3.scale.ordinal().range(colors);
-        const legend = container.append('div')
+        const color = d3.scaleOrdinal().range(colors);
+        const legend = container.insert('div')
           .attr('class', 'legend')
           .selectAll('.legend__item')
           .data(data[0].values)
-          .enter()
-          .append('div')
+          .enter().insert('div')
           .attr('class', 'legend__item');
 
-        legend.append('div')
+        legend.insert('div')
           .attr('class', 'legend__mark pull-left')
           .style('background-color', (d => color(d.label)) as any);
 
-        legend.append('div')
+        legend.insert('div')
           .attr('class', 'legend__text')
           .text(d => d.label);
 

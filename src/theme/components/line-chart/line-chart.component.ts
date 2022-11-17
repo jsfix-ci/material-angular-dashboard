@@ -43,7 +43,7 @@ export abstract class LineChartComponent implements AfterViewInit {
   }
 
   private addSvgContainer() {
-    this.svg = this.container.append('div').append('svg');
+    this.svg = this.container.insert('div').insert('svg');
   }
 
   private getSvgSizes() {
@@ -55,16 +55,14 @@ export abstract class LineChartComponent implements AfterViewInit {
 
   private addAxisLabels() {
     this.container.selectAll('svg .y-axis-label').remove();
-    this.container.select('svg')
-      .append('text')
+    this.container.select('svg').insert('text')
       .attr('class', 'y-axis-label')
       .attr('x', -(23 + this.yAxis.length * 7))
       .attr('y', '12')
       .attr('transform', 'rotate(-90)')
       .text(this.yAxis || '');
 
-    this.container.select('svg')
-      .append('text')
+    this.container.select('svg').insert('text')
       .attr('class', 'x-axis-label')
       .text(this.xAxis || '');
   }
@@ -75,13 +73,12 @@ export abstract class LineChartComponent implements AfterViewInit {
 
     const bars = Array(this.columns).fill(this.svgHeight);
 
-    this.barsLayout = this.svg.append('g')
+    this.barsLayout = this.svg.insert('g')
       .attr('class', 'bars')
       .attr('transform', 'translate(' + this.margin + ', 0)')
       .selectAll('rect')
       .data(bars)
-      .enter()
-      .append('rect');
+      .enter().insert('rect');
 
     this.addAxisLabels();
 
@@ -148,19 +145,18 @@ export abstract class LineChartComponent implements AfterViewInit {
   }
 
   private buildLegend() {
-    const legend = this.container.append('div')
+    const legend = this.container.insert('div')
       .attr('class', 'legend')
       .selectAll('.legend__item')
       .data(this.animatedData)
-      .enter()
-      .append('div')
+      .enter().insert('div')
       .attr('class', 'legend__item');
 
-    legend.append('div')
+    legend.insert('div')
       .attr('class', 'legend__mark pull-left')
       .style('background-color', d => d.color);
 
-    legend.append('div')
+    legend.insert('div')
       .attr('class', 'legend__text')
       .text(d => d.key);
   }
